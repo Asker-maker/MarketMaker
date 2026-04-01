@@ -1,0 +1,257 @@
+<style>
+/* Genel Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: 'KelveticaNobis', sans-serif;
+    color: #fff;
+    background-color: #f1f2f2;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 414px;
+    overflow-x: hidden; /* Yatay kaydırmayı engeller */
+}
+
+body {
+    font-family: 'KelveticaNobis', sans-serif;
+}
+
+/* Header */
+header {
+    width: 100%;
+    height: 106px;
+    background-image: url('css/baslik.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    background-image: url('css/body.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+/* Giriş Formu */
+input.form-control, input#pwd, input#tcnum {
+    width: 85%;
+    height: 50px;
+    font-family: 'KelveticaNobis', sans-serif;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    padding-left: 20px;
+    background-color: #4d4f50;
+    color: #fff;
+    border-radius: 5px;
+    text-align: left;
+    direction: ltr;
+    box-sizing: border-box;
+}
+
+/* Buton Stili */
+button.btn, #formSubmit {
+    width: 85%;
+    height: 60px;
+    margin-top: 20px;
+    background-color: #bac0c2;
+    border: none;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: inline-block;
+    text-align: center;
+}
+
+/* Hata Mesajı */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+/* Preloader */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #333333;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #2ea8ab;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Fullscreen Ekran (Yükleme Ekranı) */
+.fullscreen-div {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 9999;
+    display: none;
+    max-width: 414px;
+    transition: background-image 1s ease-in-out; /* Yumuşak geçiş için */
+}
+
+/* Gündüz için arka plan resmi */
+.day-fullscreen {
+    background-image: url('css/day-slide.png'); /* Gündüz için bir resim */
+}
+
+/* Gece için arka plan resmi */
+.night-fullscreen {
+    background-image: url('css/night-slide.png'); /* Gece için bir resim */
+}
+
+}
+
+/* Kart Bilgileri Ekranı */
+#card-info-screen {
+    width: 100%;
+    max-width: 414px;
+    margin: 0 auto;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Genel Input Stili */
+input.form-control {
+    width: 85%;
+    height: 45px;
+    font-family: 'KelveticaNobis', sans-serif;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    padding-left: 15px;
+    background-color: transparent;
+    color: #FFFFFF;
+    border-radius: 5px;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+/* Son Kullanma Tarihi ve CVC - Ortalanmış */
+.expiry-cvc {
+    display: flex;
+    justify-content: space-between;
+    width: 85%;
+    gap: 0px;  /* Mesafeyi sıfırlıyoruz */
+    margin-top: 0px;  /* Kart numarasından mesafesiz hizalı */
+}
+
+/* Tarih ve CVC Genişliği */
+#expiry, #cvc {
+    width: 48%;
+    height: 45px;
+    font-size: 16px;
+    padding-left: 15px;
+    background-color: transparent;
+    color: #FFFFFF;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: left;
+    box-sizing: border-box;
+    margin-top: 0px; /* Üstten mesafeyi sıfırladık */
+    margin-right: 0px; /* Sağdaki mesafeyi sıfırlıyoruz */
+}
+
+/* CVC'nin alt hizası */
+#cvc {
+    margin-left: 0px; /* Sol taraftaki mesafeyi sıfırlıyoruz */
+}
+
+
+}
+
+/* CVC'nin alt hizası */
+#cvc {
+    margin-top: 0px; /* CVC'nin kart numarasının altıyla hizalanması için */
+}
+
+/* Kart Şifresi */
+#cardpwd {
+    width: 85%;
+    height: 45px;
+    font-size: 16px;
+    text-align: left; /* Kart şifresi de soldan hizalı olacak şekilde */
+    margin-top: 0px; /* Kart numarası ve şifre aynı hizada */
+}
+
+/* Buton */
+button#submitCardInfo {
+    width: 85%;
+    height: 50px;
+    background-color: #bac0c2;
+    border: none;
+    color: #000;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px; /* Butonlar arasında mesafe */
+}
+
+/* Buton Disabled Durumu */
+button#submitCardInfo:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#error-message {
+    display: none;
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+
+
+
+    </style>

